@@ -31,8 +31,8 @@ pip install numpy pandas scikit-learn joblib
 - `model_pipeline.py`: Main script to run the feature engineering, data preprocessing, model training, evaluation, and prediction.
 - `test.py`: to make prediction and create Sample submission file.  
 - `README.md`: Project documentation.
-- `model.pkl`: Saved GridSearchCV object for the best model.
-- `final_model.pkl`: Trained model saved using joblib.
+- `grid_search.pkl`: Saved GridSearchCV object for the best model.
+- `model.pkl`: Trained model saved using joblib.
 - `submission.csv`: Sample submission file.
 
 ## Data Preprocessing
