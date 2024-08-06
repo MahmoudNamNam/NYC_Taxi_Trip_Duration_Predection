@@ -28,10 +28,10 @@ pip install numpy pandas scikit-learn joblib
 
 ## Project Structure
 
-- `main.py`: Main script to run the data preprocessing, model training, evaluation, and prediction.
-- `utils.py`: Utility functions for feature engineering, model training, and evaluation.
+- `model_pipeline.py`: Main script to run the feature engineering, data preprocessing, model training, evaluation, and prediction.
+- `test.py`: to make prediction and create Sample submission file.  
 - `README.md`: Project documentation.
-- `grid_search.pkl`: Saved GridSearchCV object for the best model.
+- `model.pkl`: Saved GridSearchCV object for the best model.
 - `final_model.pkl`: Trained model saved using joblib.
 - `submission.csv`: Sample submission file.
 
@@ -75,45 +75,14 @@ Trained using a pipeline with feature scaling and polynomial features.
 ### Model Performance
 
 #### Training
+
 - R² score: 0.6729
 
 #### Validation
+
 - RMSE: 268.05
 - MAE: 203.69
 - R² score: 0.6423
-
-## Usage
-
-### Train the Model
-```python
-from utils import load_data, preprocess_data, train_model, evaluate_model, save_model
-
-# Load and preprocess the data
-train_data = load_data('train.csv')
-train_data = preprocess_data(train_data, xlim, ylim, hour_to_speed)
-
-# Split the data into features and target
-X_train = train_data.drop(columns=['trip_duration'])
-y_train = train_data['trip_duration']
-
-# Train and save the model
-best_model = train_model(X_train, y_train)
-evaluate_model(best_model, X_train, y_train)
-save_model(best_model, 'final_model.pkl')
-```
-
-### Predict and Save Submission
-```python
-from utils import load_model, preprocess_data, predict_and_save_submission
-
-# Load the model and test data
-model = load_model('final_model.pkl')
-test_data = load_data('test.csv')
-test_data = preprocess_data(test_data, xlim, ylim, hour_to_speed, isTest=True)
-
-# Make predictions and save submission
-predict_and_save_submission(model, test_data, test_data['id'], 'submission.csv')
-```
 
 ## Conclusion
 
@@ -124,5 +93,3 @@ This project demonstrates the use of extensive feature engineering and machine l
 - [NYC Taxi Trip Duration Dataset](https://www.kaggle.com/c/nyc-taxi-trip-duration/data)
 
 ---
-
-This README provides a comprehensive overview of the project, guiding users through setup, data preprocessing, model training, and evaluation steps.
