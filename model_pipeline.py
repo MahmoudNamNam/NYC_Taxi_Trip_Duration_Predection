@@ -2,7 +2,7 @@ import pickle
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
-from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso, Ridge
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import GridSearchCV, cross_val_score
@@ -154,6 +154,24 @@ def preprocess_data(df, xlim, ylim, hour_to_speed,isTest=False):
     return df
 
 
+def get_important_features(df, target_column, alpha=0.1):
+    """Get important features using Lasso regression."""
+    # Select only numeric columns
+    numeric_df = df.select_dtypes(include=[np.number])
+    
+    feature_columns = numeric_df.columns[numeric_df.columns != target_column]
+    X = numeric_df[feature_columns]
+    y = numeric_df[target_column]
+    
+    lasso = Lasso(alpha=alpha)
+    lasso.fit(X, y)
+    lasso_coef = pd.Series(lasso.coef_, index=feature_columns)
+    important_features = lasso_coef[lasso_coef != 0].index.tolist()
+    print("Important Features from Lasso:", important_features)
+    return important_features
+
+ 
+
 def train_model(X_train, y_train):
     """Train the Ridge regression model with GridSearchCV."""
     pipeline = Pipeline([
@@ -215,6 +233,7 @@ def main():
     sample_submission_path = './Data/sample_submission.csv'
     model_filename = 'model.pkl'
     submission_filename = 'submission.csv'
+    
     feature_columns = ['passenger_count','pickup_cluster_label', 'dropoff_cluster_label', 'trip_distance', 'bearing', 'month', 'day_of_month', 'weekday', 'is_weekend', 'season', 'is_rush_hour', 'average_hourly_speed', 'pickup_minute', 'pickup_minute_of_day', 'manhattan_distance', 'distance_speed_interaction', 'distance_to_center', 'distance_to_jfk', 'distance_to_laguardia']
 
 
