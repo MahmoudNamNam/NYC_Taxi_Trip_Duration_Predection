@@ -52,7 +52,7 @@ A Ridge Regression model with polynomial features was used for the final predict
 
 The model was trained using the following metrics:
 
-- **R² Score on Training Data**: 0.6729
+- **R² Score on Training Data**: 0.6929
 
 ### Validation
 
@@ -60,7 +60,7 @@ The model was evaluated on the validation set using the following metrics:
 
 - **Validation RMSE**: 268.05
 - **Validation MAE**: 203.69
-- **Validation R² Score**: 0.6423
+- **Validation R² Score**: 0.6623
 
 ## Code Structure
 
